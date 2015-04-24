@@ -5,7 +5,13 @@ defmodule Monad.Mixfile do
     [app: :monad,
      version: "0.0.1",
      elixir: "~> 1.0",
-     deps: deps]
+     deps: deps,
+      dialyzer: [
+        plt_apps: [:erts, :kernel, :stdlib],
+        plt_add_apps: [:mnesia],
+        flags: ["-Wunmatched_returns","-Werror_handling","-Wrace_conditions", "-Wno_opaque"]
+      ]
+    ]
   end
 
   # Configuration for the OTP application
@@ -14,6 +20,6 @@ defmodule Monad.Mixfile do
   end
 
   defp deps do
-    []
+    [{:dialyze, "~> 0.1.4", ony: [:dev]}]
   end
 end
